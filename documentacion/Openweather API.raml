@@ -1,0 +1,145 @@
+#%RAML 1.0
+
+title: Weather API
+baseUri: http://api.openweathermap.org/data/{version}
+version: 2.5
+mediaType: [ application/json]
+
+/weather:
+  get:
+    displayName: Get Weather 
+    queryParameters:
+      coord:
+        displayName: Ubicacion geografica de la ciudad
+        required: false
+        enum:
+          - lon
+          - lat
+
+      sun:
+        displayName: posicion del sol
+        required: false
+        enum:
+          - rise
+          - set
+
+      city:
+        displayName: identificacion, nombre, coordenadas, zona horario y posicion del sol de la ciudad
+        required: true
+        enum:
+          - id
+          - name
+          - {coord}
+          - timezon
+          - {sun}
+
+      unit:
+        displayName: Unidad de medida de temperatura
+        required: false
+        enum:
+          - Celsius
+          - kelvin
+          - Fahrenheit
+
+      temperature:
+        displayName: valorde la temperatura, nimimo, maximo y temperatura desde la persepcion humana
+        required: false
+        enum:
+          - value
+          - min
+          - max
+          - {unit}
+
+      feels_like:
+        displayName: Temperatura desde la persepcion humana del clima 
+        required: false
+        enum:
+          - value
+          - {unit}
+
+      humidity:
+        displayName: Valor y porcentaje de humedad
+        required: false
+        enum:
+          - value
+          - unit
+
+      presure:
+        displayName: Valor y unidad de presion
+        required: false
+        enum:
+          - value
+          - unit
+
+      speed:
+        displayName: velocidad el viento
+        required: false
+        enum:
+          - value
+          - unit
+          - name
+
+      direction:
+        displayName: direccion del viento
+        required: false
+        enum:
+          - value
+          - code
+          - name
+
+      wind:
+        displayName: velocidad y direccion del viento
+        required: false
+        enum:
+          - {speed}
+          - {direction}
+
+      clouds:
+        displayName: valor y nombre de la nubosidad
+        required: false
+        enum:
+          - value
+          - name
+
+      visivility:
+        displayName: Medidor de visibilidad. Valor maximo 10km
+        required: false
+        enum:
+          - value
+      
+      presipitation:
+        displayName: 
+        required: false
+        enum:
+          - value
+          - mode
+      weather:
+        displayName: numero, nombre e icono de la condicion.
+        enum:
+        - number
+        - value 
+        - icon
+      
+      lastUpdate: 
+        displayName: Ultima ves que se actualizaron los datos
+        required: false
+        enum:
+          - value
+
+
+    200:
+      body: 
+        application/json:
+          example:
+            message: Respuesta Exitosa
+          
+    404:
+      body:
+        application/json:
+          example:
+            message: Unauthorized
+    229:
+      body:
+        application/json:
+          example:
+            message: Tu cuenta esta bloqueada

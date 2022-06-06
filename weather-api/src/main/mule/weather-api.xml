@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="c2a19fc1-cadf-4929-9059-421eb587ef87" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<http:request-config name="HTTP_Request_configuration" doc:name="HTTP Request configuration" doc:id="8cf6d5b8-7b94-4b32-bb0b-6e5b2a3cbee5">
+		<http:request-connection host="api.openweathermap.org" port="80"/>
+	</http:request-config>
+	<flow name="weather-apiFlow" doc:id="87866b1b-c1f0-4daa-a76e-5a4d831d2728" >
+		<http:listener doc:name="Listener" doc:id="25c3f96c-3f49-45d0-b660-834fc27f717a" config-ref="HTTP_Listener_config" path="/weather"/>
+		<http:request method="GET" doc:name="Request" doc:id="d3a1ad90-c731-420e-8e3e-736ee1c48ed4" config-ref="HTTP_Request_configuration" path="/data/2.5/weather?q=Tijuana&amp;APPID=be94443b789419e352d66213db964995" outputMimeType="application/json"/>
+		<logger level="INFO" doc:name="Logger" doc:id="a5f53d8f-732a-45e4-a84b-49a0fbbdbb69" />
+	</flow>
+</mule>
